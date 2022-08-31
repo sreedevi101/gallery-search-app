@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context=".SearchDialogFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Keywords separated by comma (E.g. flower, red)" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select folder"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/folder_select_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select content"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/search_category_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_name_only"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image name only"
+                android:checked="false"
+                android:textColor="@color/bluegrey_100_dark" />
+
+            <RadioButton
+                android:id="@+id/radio_tags_only"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image tags only"
+                android:checked="false"
+                android:textColor="@color/bluegrey_100_dark" />
+
+            <RadioButton
+                android:id="@+id/radio_name_and_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image name and tags"
+                android:checked="true"
+                android:textColor="@color/bluegrey_100_dark" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</LinearLayout>

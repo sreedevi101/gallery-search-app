@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--This file will switch between selected_dot.xml and default_dot.xml ,
+    depending on the page selected in ViewPager-->
+    <item android:drawable="@drawable/selected_dot"
+        android:state_selected="true"/>
+
+    <item android:drawable="@drawable/default_dot"/>
+
+</selector>

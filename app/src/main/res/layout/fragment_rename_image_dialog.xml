@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RenameImageDialogFragment"
+    android:padding="10dp"
+    android:background="@color/bluegrey_100">
+
+    <EditText
+        android:id="@+id/newNameInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/userWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newNameInputEditText"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/warnIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/warning"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:id="@+id/warnUserText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/warnIcon"
+            tools:text="@string/name_exists_in_the_folder"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

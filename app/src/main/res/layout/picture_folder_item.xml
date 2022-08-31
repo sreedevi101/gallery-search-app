@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML layout for each folder item to be displayed in the RecyclerView-->
+<!--RecyclerView corresponding to this item/layout is in activity_main.xml-->
+<!--This layout file is inflated from PictureFolderAdapter.java-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="150dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/latestPic"
+                android:layout_width="match_parent"
+                android:layout_height="110dp" />
+
+            <TextView
+                android:id="@+id/folderName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/latestPic"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/folderSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/latestPic"
+                android:layout_alignParentRight="true"
+                android:maxLines="1"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="-1"
+                android:shadowDy="-1"
+                android:shadowRadius="1"/>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

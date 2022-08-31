@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:textColor="?attr/colorSecondary"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        tools:text="@string/page0_head" />
+
+    <ImageView
+        android:id="@+id/graphics"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="7"
+        android:scaleType="fitCenter"
+        tools:src="@mipmap/outline_photo_library_white_48" />
+
+    <TextView
+        android:id="@+id/explanation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:textColor="?attr/colorSecondary"
+        android:textSize="28dp"
+        tools:text="@string/page0_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/skip_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorSecondary"
+            tools:text="@string/skip"
+            android:textAllCaps="true"
+            android:textSize="24dp"
+            android:layout_alignParentRight="true"
+            android:padding="12sp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ripple_border"
+            android:drawableRight="@mipmap/outline_keyboard_double_arrow_right_white_24"
+            android:drawablePadding="4dp"
+            android:clickable="true"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This XML file contains the layout for a single image to be displayed in the RecyclerView-->
+<!--The RecyclerView (to display images in a selected folder) layout is in activity_image_display.xml-->
+<!--This XML file is inflated from ImageDisplayAdapter.java-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="140dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="1dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
