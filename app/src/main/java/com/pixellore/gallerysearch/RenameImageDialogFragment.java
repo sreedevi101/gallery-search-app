@@ -10,21 +10,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pixellore.gallerysearch.utils.Image;
-import com.pixellore.gallerysearch.utils.SearchFilter;
 import com.pixellore.gallerysearch.utils.Utility;
 
 import java.util.ArrayList;
@@ -49,14 +45,11 @@ public class RenameImageDialogFragment extends DialogFragment {
 
     public RenameImageDialogFragment(Image image, Context context) {
 
-        String originalImageNameWithExt;
-        String[] originalImageNameExtension;
-        originalImageNameWithExt = image.getImageName();
-        //Log.v("RenameImageDialogFragment", "originalImageName: " + originalImageName);
+        String originalImageNameWithExt = image.getImageName();
 
-        // Remove extension (ex. ".jpg") from image name
-        originalImageNameExtension = originalImageNameWithExt.split("\\.");
-        originalImageName = originalImageNameExtension[0];
+        Log.v(TAG, "Image name with Extension: " + originalImageNameWithExt);
+        originalImageName = removeExtension(originalImageNameWithExt);
+        Log.v(TAG, "Image Name without Extension: " + originalImageName);
 
         // Get the list of all images in the folder (folder of the image) to alert the user if an existing name is entered
         ArrayList<Image> imagesData = Utility.getAllImagesByFolder(image.getImageFolderPath(), context);
@@ -65,23 +58,19 @@ public class RenameImageDialogFragment extends DialogFragment {
         // Loop through and get all the names
         allImageNames = new ArrayList<String>();
         String eachImageNameWithExt, eachImageName;
-        String[] nameExtension;
-
-        //Log.v("RenameImageDialogFragment", "imagesData size: " + imagesData.size());
 
         for (int i = 0; i < imagesData.size(); i++) {
             eachImageNameWithExt = imagesData.get(i).getImageName();
-            //Log.v("RenameImageDialogFragment", "imagesData " + i + ": " + eachImageNameWithExt);
 
             if (Objects.equals(image.getImageName(), eachImageNameWithExt)) {
                 // This is the image to be renamed, its name should be spared as a different check is to be done for it
-                //Log.v("RenameImageDialogFragment", "[excluded] imagesData " + i + ": " + eachImageNameWithExt);
+
             } else {
                 // Add all image names in the folder except the original image name to be rename in an ArrayList
-                nameExtension = eachImageNameWithExt.split("\\.");
-                eachImageName = nameExtension[0];
+                eachImageName = removeExtension(eachImageNameWithExt);
+
                 if (!(imagesData.get(i) == null)) {
-                    Log.v("RenameImageDialogFragment", "" + i + " : " + eachImageName);
+                    Log.v(TAG, "" + i + " : " + eachImageName);
                     allImageNames.add(eachImageName);
                 }
             }
@@ -90,6 +79,22 @@ public class RenameImageDialogFragment extends DialogFragment {
         }
 
 
+    }
+
+    private String removeExtension(String nameWithExt) {
+
+        // return String with no extension, but only image name
+        String nameWithoutExt = nameWithExt;
+
+        String ext;
+        String[] nameSplitArray;
+
+        // Remove extension (ex. ".jpg") from image name
+        nameSplitArray = nameWithExt.split("\\.");
+        ext = nameSplitArray[nameSplitArray.length - 1];
+        nameWithoutExt = nameWithExt.substring(0, nameWithExt.lastIndexOf(ext)-1);
+
+        return nameWithoutExt;
     }
 
     @SuppressLint("ResourceAsColor")
