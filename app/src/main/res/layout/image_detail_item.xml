@@ -13,7 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageViewItem">
+        android:layout_alignBottom="@id/imageViewItem"
+        android:background="@drawable/gradient_image_name_bar_background">
 
         <TextView
             android:id="@+id/imageNameDetail"

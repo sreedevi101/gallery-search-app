@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@android:color/white"
-        android:background="@null"
+        android:background="@drawable/gradient_toolbar_background"
         android:theme="@style/ImageDetailToolBarStyle"/>
 
     <androidx.appcompat.widget.Toolbar
