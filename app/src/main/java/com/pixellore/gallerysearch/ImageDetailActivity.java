@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.pixellore.gallerysearch.utils.Image;
@@ -85,18 +86,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
     List<ImageTag> allData;
 
 
-    /**
-     * Create an instance of the click listener {@link com.pixellore.gallerysearch.utils.ImageDetailAdapter.OnItemClickListener}
-     * interface.
-     * Define the logic of what happens when a click is detected inside the call back function
-     */
-    ImageDetailAdapter.OnItemClickListener clickListenerObj = new ImageDetailAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(Image imageItem) {
-            Toast.makeText(ImageDetailActivity.this, imageItem.getImageName(), Toast.LENGTH_SHORT).show();
-        }
-    };
-
+    ImageDetailAdapter.OnItemClickListener clickListenerObj;
 
     // https://developer.android.com/training/basics/intents/result
     private final ActivityResultLauncher<IntentSenderRequest> requestRenamePermissionLauncher = registerForActivityResult(
@@ -189,6 +179,27 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // remove title from action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
+
+
+        /**
+         * Create an instance of the click listener {@link com.pixellore.gallerysearch.utils.ImageDetailAdapter.OnItemClickListener}
+         * interface.
+         * Define the logic of what happens when a click is detected inside the call back function
+         */
+        clickListenerObj = new ImageDetailAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Image imageItem) {
+                //Toast.makeText(ImageDetailActivity.this, imageItem.getImageName(), Toast.LENGTH_SHORT).show();
+
+                // Toggle visibility of top toolbar on user click
+                if (topToolbar.getVisibility() == View.GONE){
+                    topToolbar.setVisibility(View.VISIBLE);
+                }else if (topToolbar.getVisibility() == View.VISIBLE){
+                    topToolbar.setVisibility(View.GONE);
+                }
+            }
+        };
 
 
         /*

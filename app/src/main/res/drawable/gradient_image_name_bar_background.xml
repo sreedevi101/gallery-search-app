@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Background for image name at the bottom of image in 'ImageDetailActivity'-->
+<!--Transparent background with gradient-->
+<!--https://stackoverflow.com/questions/46803404/transparent-gradient-toolbar-->
+<!--Compare to @drawable/gradient_toolbar_background, angle different-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="9dp"/>
+
+    <gradient
+        android:type="linear"
+        android:startColor="#66000000"
+        android:endColor="@android:color/transparent"
+        android:angle="90">
+    </gradient>
+
+</shape>

@@ -88,6 +88,14 @@ public class ImageDetailAdapter extends RecyclerView.Adapter<ImageDetailAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // Toggle the image name text below the image on user click on image
+                    if (imageNameView.getVisibility() == View.VISIBLE) {
+                        imageNameView.setVisibility(View.GONE);
+                    } else if (imageNameView.getVisibility() == View.GONE) {
+                        imageNameView.setVisibility(View.VISIBLE);
+                    }
+
+                    // call function defined in the activity
                     listener.onItemClick(image);
                 }
             });
