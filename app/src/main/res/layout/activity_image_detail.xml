@@ -35,6 +35,13 @@
         android:theme="@style/ImageDetailToolBarStyle"
         android:layout_alignBottom="@id/imageViewPager"/>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/image_tag_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.fragment.app.FragmentContainerView>
+
 
 
    <!-- <androidx.recyclerview.widget.RecyclerView

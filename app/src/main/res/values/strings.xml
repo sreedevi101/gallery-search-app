@@ -22,8 +22,11 @@
     <!--Skip/Done text in tutorial pages-->
     <string name="skip">Skip</string>
     <string name="done">Done</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Image Tag-->
+    <string name="image_tag_add_edit_delete_heading">Manage tags for the image</string>
+
+    <!--Image Rename-->
     <string name="name_exists_in_the_folder">Another image with this name already exists in the folder</string>
     <string name="name_same_as_original">New name entered is same as original name of this image</string>
 
