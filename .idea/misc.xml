@@ -25,12 +25,14 @@
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_tutorial.xml" value="0.10925925925925926" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_info_dialog.xml" value="0.25" />
-        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_dialog.xml" value="0.264" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_edit.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_view.xml" value="0.11481481481481481" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_rename_image_dialog.xml" value="0.4" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_search_dialog.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/image_detail_item.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/image_indicator_item.xml" value="0.25" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/image_tag_edit_item.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/image_view_item.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/image_view_pager.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/picture_folder_item.xml" value="0.1" />

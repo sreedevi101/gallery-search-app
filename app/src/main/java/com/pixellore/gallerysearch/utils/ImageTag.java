@@ -1,5 +1,8 @@
 package com.pixellore.gallerysearch.utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,7 +14,7 @@ import androidx.room.PrimaryKey;
 * the corresponding image tags added by the user
 * */
 @Entity(tableName = "image_tag")
-public class ImageTag {
+public class ImageTag implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "database_id")
@@ -36,6 +39,24 @@ public class ImageTag {
         this.tag = tag;
     }
 
+    protected ImageTag(Parcel in) {
+        id = in.readLong();
+        imageId = in.readString();
+        tag = in.readString();
+    }
+
+    public static final Creator<ImageTag> CREATOR = new Creator<ImageTag>() {
+        @Override
+        public ImageTag createFromParcel(Parcel in) {
+            return new ImageTag(in);
+        }
+
+        @Override
+        public ImageTag[] newArray(int size) {
+            return new ImageTag[size];
+        }
+    };
+
     public long getId() {
         return id;
     }
@@ -58,5 +79,17 @@ public class ImageTag {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(imageId);
+        parcel.writeString(tag);
     }
 }

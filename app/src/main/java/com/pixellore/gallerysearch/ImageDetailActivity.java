@@ -51,7 +51,7 @@ import io.reactivex.schedulers.Schedulers;
  * This activity displays the single image clicked by the user in {@link ImageDisplay} in a view pager
  * */
 public class ImageDetailActivity extends AppCompatActivity implements RenameImageDialogFragment.RenameImageDialogListener,
-        ImageTagDialogFragment.ImageTagDialogListener {
+        ImageTagEditFragment.ImageTagFragmentListener {
 
     ArrayList<Image> allImages;
 
@@ -690,12 +690,44 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                     }
                 }
 
-                // Open the Dialog Fragment to add or edit tags
-                new ImageTagDialogFragment(currentImage, correctImageTag,
-                        ImageDetailActivity.this).show(getSupportFragmentManager(),
-                        ImageTagDialogFragment.TAG);
 
-                // 'onPositiveClickForTag' method will be executed based on user input
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    // Android 11
+
+                    allImagesUri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
+
+
+                } else {
+                    // Android 10
+
+                    //allImagesUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI;
+                    allImagesUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
+                    imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
+                }
+
+
+
+                // Open the Fragment 'ImageTagEditFragment' to edit/add/delete image tags
+                ImageTagEditFragment imageTagEditFragment = new ImageTagEditFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Image Object",imageUri);
+                bundle.putParcelable("ImageTag Object", correctImageTag);
+
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        )
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .add(R.id.image_tag_fragment_container, ImageTagEditFragment.class, bundle)
+                        .commit();
+
 
                 return true;
 
@@ -812,11 +844,11 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
 
     /**
-    * Method to be executed when the positive button of {@link ImageTagDialogFragment} is pressed
+    * Method to be executed when the positive button of {@link ImageTagEditFragment} is pressed
     * */
     @Override
     public void onPositiveClickForTag(String imageTagInput) {
-        Log.v("Image Tag user input", imageTagInput);
+        Log.v("Image Tag user input", ""+ imageTagInput);
 
         // image ID would be updated whenever user opens an image or scrolls in the ViewPager
         // refer "redrawToolbar" method
@@ -836,21 +868,33 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             }
         }
 
-        // Create object of class "ImageTag"
-        ImageTag newImageTagObj = new ImageTag(currentImageId, imageTagInput);
+        // if tag input received is not null
+        if (imageTagInput != null){
+            // Create object of class "ImageTag"
+            ImageTag newImageTagObj = new ImageTag(currentImageId, imageTagInput);
 
-        // Based on if the image ID row already exists in the DB or not, determine if insert/update to be performed
-        if (imageIdAlreadyInDb == false) {
-            // insert new image and its tags to DB table
-            modifyImageTagDatabase(newImageTagObj, "insert", true);
-        } else if (imageIdAlreadyInDb == true) {
-            // Instead of inserting as a new row in the DB table, update the existing row for this image ID
+            // Based on if the image ID row already exists in the DB or not, determine if insert/update to be performed
+            if (imageIdAlreadyInDb == false) {
+                // insert new image and its tags to DB table
+                modifyImageTagDatabase(newImageTagObj, "insert", true);
+            } else if (imageIdAlreadyInDb == true) {
+                // Instead of inserting as a new row in the DB table, update the existing row for this image ID
 
-            // Delete current image tag object from DB table
-            modifyImageTagDatabase(currentImageTagObj, "delete", false);
+                // Delete current image tag object from DB table
+                modifyImageTagDatabase(currentImageTagObj, "delete", false);
 
-            // insert the new ImageTag object to DB table
-            modifyImageTagDatabase(newImageTagObj, "insert", true);
+                // insert the new ImageTag object to DB table
+                modifyImageTagDatabase(newImageTagObj, "insert", true);
+            }
+
+        } else{
+            // if tag input received is null
+            if (imageIdAlreadyInDb == true) {
+                // If currently there is a tag, delete it
+
+                // Delete current image tag object from DB table
+                modifyImageTagDatabase(currentImageTagObj, "delete", false);
+            }
         }
 
     }
