@@ -1,4 +1,4 @@
-# Gallery_v2
+# Gallery Search
  Android app
  
  Photo gallery to search, tag and view the pictures in your phone.
