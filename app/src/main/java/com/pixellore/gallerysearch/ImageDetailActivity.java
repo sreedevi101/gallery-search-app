@@ -40,6 +40,7 @@ import com.pixellore.gallerysearch.utils.ImageTagViewModel;
 import com.pixellore.gallerysearch.utils.SearchFilter;
 import com.pixellore.gallerysearch.utils.Utility;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -667,6 +668,28 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 return true;
             case R.id.action_image_share:
                 // share action
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    // Android 11
+
+                    allImagesUri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
+
+
+                } else {
+                    // Android 10
+
+                    //allImagesUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI;
+                    allImagesUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
+                    imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
+                }
+
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/jpg");
+                
+                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                startActivity(Intent.createChooser(shareIntent, "Share image using"));
+
                 return true;
             case R.id.action_image_rename:
                 // rename image
