@@ -63,4 +63,9 @@ dependencies {
 
     // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
+
+
+    // Open source library for image 'Pinch and Zoom' and 'Double-tap and zoom'
+    // https://github.com/Baseflow/PhotoView
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
