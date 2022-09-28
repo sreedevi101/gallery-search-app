@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <!--<ImageView
+        android:id="@+id/imageViewItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>-->
+
+    <!-- Use custom open source library image view with zoom feature, instead of the ImageView-->
+    <!--https://github.com/Baseflow/PhotoView-->
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imageViewItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.pixellore.gallerysearch.R;
 
 import java.util.ArrayList;
@@ -74,12 +75,12 @@ public class ImageDetailAdapter extends RecyclerView.Adapter<ImageDetailAdapter.
 
     public class ImageDetailViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        PhotoView imageView;
         TextView imageNameView;
 
         public ImageDetailViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageViewItem);
+            imageView = (PhotoView) itemView.findViewById(R.id.imageViewItem);
             imageNameView = itemView.findViewById(R.id.imageNameDetail);
         }
 
