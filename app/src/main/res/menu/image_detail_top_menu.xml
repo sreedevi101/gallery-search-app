@@ -50,19 +50,23 @@
 
     <item
         android:id="@+id/action_image_tag_delete"
-        android:title="Delete Tag"
+        android:title="Delete all tags"
         app:showAsAction="ifRoom"/>
+
+    <!--DEBUGGING purpose only-->
+    <!--Visibility turned of for release-->
 
     <item
         android:id="@+id/action_show_tag_db"
         android:title="Show Tag DB"
-        app:showAsAction="ifRoom"/>
-
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <item
         android:id="@+id/action_clear_tag_db"
         android:title="Clear Tag DB"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
 
 
