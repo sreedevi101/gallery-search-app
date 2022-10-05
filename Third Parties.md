@@ -1,4 +1,4 @@
-Third Parties
+**Third Parties**
 
 [PhotoView](https://github.com/Baseflow/PhotoView)
 
