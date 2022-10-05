@@ -28,6 +28,12 @@
 
     <!--Image Rename-->
     <string name="name_exists_in_the_folder">Another image with this name already exists in the folder</string>
-    <string name="name_same_as_original">New name entered is same as original name of this image</string>
+    <string name="name_same_as_original">/New name entered is same as original name of this image</string>
+
+    <string name="about_page_short_description">
+    "Gallery Search" is everything you expect in a photo gallery plus more!!!
+
+        Search and Tag + View and Organize + Ad Free!
+    </string>
 
 </resources>
