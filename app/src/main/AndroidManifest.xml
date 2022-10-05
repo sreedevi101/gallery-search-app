@@ -5,53 +5,26 @@
     <!-- Gallery needs access to external storage to get all images -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:required="true" />
-
-    <!--Android 11-->
+        android:required="true" /> <!-- Android 11 -->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
         tools:ignore="ScopedStorage" />
 
-    <!--<uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:required="true" />-->
-
-
-    <!--Backup
-    reference:
-    https://stackoverflow.com/questions/33169618/an-android-app-remembers-its-data-after-uninstall-and-reinstall
-    https://developer.android.com/guide/topics/data/autobackup
-    -->
-
-    <!--android:requestLegacyExternalStorage="true" for Android 10 -->
     <application
         android:allowBackup="false"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme"
-        android:requestLegacyExternalStorage="true"
         android:windowSoftInputMode="stateHidden|adjustPan">
         <activity
-            android:name="com.pixellore.gallerysearch.TutorialActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.pixellore.gallerysearch.ImageDetailActivity"
+            android:name=".AboutAppActivity"
             android:exported="false"
-            android:parentActivityName="com.pixellore.gallerysearch.ImageDisplay">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pixellore.gallerysearch.ImageDisplay" />
-        </activity>
-        <activity
-            android:name="com.pixellore.gallerysearch.ImageDisplay"
-            android:exported="false"
-            android:parentActivityName="com.pixellore.gallerysearch.MainActivity">
+            android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -59,7 +32,30 @@
                 android:value="com.pixellore.gallerysearch.MainActivity" />
         </activity>
         <activity
-            android:name="com.pixellore.gallerysearch.MainActivity"
+            android:name=".TutorialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImageDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ImageDisplay">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pixellore.gallerysearch.ImageDisplay" />
+        </activity>
+        <activity
+            android:name=".ImageDisplay"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pixellore.gallerysearch.MainActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
             android:label="Gallery Search">
             <intent-filter>

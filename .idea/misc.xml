@@ -21,6 +21,8 @@
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/tag_text_border.xml" value="0.245" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/tag_text_border_shape.xml" value="0.245" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/warning.xml" value="0.194" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_about_app.xml" value="0.25" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_about_page.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_detail.xml" value="0.2" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_display.xml" value="0.264" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_view.xml" value="0.25" />
@@ -43,6 +45,7 @@
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/tutorial_item.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/image_detail_bottom_menu.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/image_detail_top_menu.xml" value="0.264" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/mainactivity_menu.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/xml/backup_rules.xml" value="0.25" />
       </map>
     </option>

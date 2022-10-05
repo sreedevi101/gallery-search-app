@@ -686,7 +686,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
                 final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("image/jpg");
-                
+
                 shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 startActivity(Intent.createChooser(shareIntent, "Share image using"));
 

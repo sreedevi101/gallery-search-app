@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +28,9 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -163,6 +167,38 @@ public class MainActivity extends AppCompatActivity implements SearchDialogFragm
         });
 
 
+    }
+
+    /*
+     * This method is to inflate the menu items for the top toolbar
+     * */
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.mainactivity_menu, menu);
+        return true;
+    }
+
+    /*
+     * This method is to handle the user clicks on the menu items (action icons) in the top toolbar
+     * */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
+        switch (item.getItemId()) {
+            case R.id.about_menu:
+                // Display details "About" the app
+
+                // Open a new activity called 'AboutAppActivity' to display the information about the app
+                Intent about = new Intent(MainActivity.this, AboutAppActivity.class);
+
+                startActivity(about);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private boolean checkPermission() {
