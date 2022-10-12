@@ -22,6 +22,9 @@
         android:theme="@style/CustomTheme"
         android:windowSoftInputMode="stateHidden|adjustPan">
         <activity
+            android:name=".ImageTagEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutAppActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity">

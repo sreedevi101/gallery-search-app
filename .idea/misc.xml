@@ -4,12 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/default_dot.xml" value="0.1" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/delete.xml" value="0.1" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/delete_forever.xml" value="0.1965" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1835" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/info.xml" value="0.1" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/remove.xml" value="0.1965" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/ripple_border.xml" value="0.1225" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/selected_dot.xml" value="0.1625" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable-v24/skip_done_border.xml" value="0.1625" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/close.xml" value="0.245" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/done.xml" value="0.2285" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/edit_text_box_border.xml" value="0.1555" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/favorite_not_selected.xml" value="0.1485" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/drawable/favorite_selected.xml" value="0.1485" />
@@ -25,12 +29,13 @@
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_about_page.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_detail.xml" value="0.2" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_display.xml" value="0.264" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_tag_edit.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_image_view.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/activity_tutorial.xml" value="0.10925925925925926" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_info_dialog.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_dialog.xml" value="0.1" />
-        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_edit.xml" value="0.1" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_tag_edit.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_image_view.xml" value="0.11481481481481481" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_rename_image_dialog.xml" value="0.4" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/fragment_search_dialog.xml" value="0.1" />
@@ -45,6 +50,7 @@
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/layout/tutorial_item.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/image_detail_bottom_menu.xml" value="0.1" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/image_detail_top_menu.xml" value="0.264" />
+        <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/image_tag_edit_top_menu.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/menu/mainactivity_menu.xml" value="0.25" />
         <entry key="..\:/Users/Pixellore/AndroidStudioProjects/Gallery_v2/app/src/main/res/xml/backup_rules.xml" value="0.25" />
       </map>

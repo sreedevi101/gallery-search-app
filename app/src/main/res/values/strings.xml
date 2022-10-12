@@ -28,12 +28,26 @@
 
     <!--Image Rename-->
     <string name="name_exists_in_the_folder">Another image with this name already exists in the folder</string>
-    <string name="name_same_as_original">/New name entered is same as original name of this image</string>
+    <string name="name_same_as_original">New name entered is same as original name of this image</string>
 
     <string name="about_page_short_description">
     "Gallery Search" is everything you expect in a photo gallery plus more!!!
 
         Search and Tag + View and Organize + Ad Free!
     </string>
+
+    <!--Alert user about duplicates-->
+    <string name="delete_duplicates_msg">Duplicate tags will be deleted.</string>
+    <string name="delete_duplicates_heading">Duplicate Tags Exists</string>
+    <string name="delete_duplicates_ok_button">Continue</string>
+    <string name="delete_duplicates_cancel_button">Go back and Edit</string>
+
+
+    <!--Alert user about deleting all tags; get user confirmation-->
+    <string name="delete_all_tags_msg">Do you want to delete all tags for this photo?
+        All tags will be deleted permanently</string>
+    <string name="delete_all_tags_heading">Delete All Tags</string>
+    <string name="delete_all_tags_ok_button">Confirm</string>
+    <string name="delete_all_tags_cancel_button">Cancel</string>
 
 </resources>
