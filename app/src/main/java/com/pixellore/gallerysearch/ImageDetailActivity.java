@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.RecoverableSecurityException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -41,7 +43,6 @@ import com.pixellore.gallerysearch.utils.ImageTagViewModel;
 import com.pixellore.gallerysearch.utils.SearchFilter;
 import com.pixellore.gallerysearch.utils.Utility;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -93,9 +94,10 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
 
     ImageDetailAdapter.OnItemClickListener clickListenerObj;
+    private String imageActionToComplete = "";
 
     // https://developer.android.com/training/basics/intents/result
-    private final ActivityResultLauncher<IntentSenderRequest> requestRenamePermissionLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<IntentSenderRequest> requestRenameDeletePermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.StartIntentSenderForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -110,28 +112,40 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
                     switch (result.getResultCode()) {
                         case Activity.RESULT_OK:
-                            // Perform rename
 
-                            v("Rename", "UserPermission GRANTED");
+                            if (imageActionToComplete.equals("Rename")){
+                                // Perform rename
+                                v("Rename", "UserPermission GRANTED");
+                                performRenameAction();
+                            } else if (imageActionToComplete.equals("Delete")){
+                                // Perform delete
+                                v("Delete", "UserPermission GRANTED");
+                                performDeleteAction();
+                            } else {
+                                v("Getting Permission", "Invalid input in requestRenameDeletePermissionLauncher");
+                            }
 
-                            performRenameAction();
                             break;
                         case Activity.RESULT_CANCELED:
                             // Inform user action cannot be performed
+                            v("Rename/Delete", "UserPermission DENIED");
 
-                            v("Rename", "UserPermission DENIED");
-
-                            Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission", Toast.LENGTH_SHORT).show();
+                            if (imageActionToComplete.equals("Rename")){
+                                Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission",
+                                        Toast.LENGTH_SHORT).show();
+                            }else if (imageActionToComplete.equals("Delete")){
+                                Toast.makeText(ImageDetailActivity.this, "Picture cannot be deleted without permission",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                v("Getting Permission", "Invalid input in requestRenameDeletePermissionLauncher");
+                            }
 
                             break;
                         default:
                             // This case is unlikely
                             // inform user something went wrong, action cannot be performed
-
-                            v("Rename", "UserPermission INVALID INPUT");
-
+                            v("Rename/Delete", "UserPermission INVALID INPUT");
                             Toast.makeText(ImageDetailActivity.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
-
                             break;
                     }
 
@@ -371,6 +385,62 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
     }
 
+    private void deleteImage(Image image) {
+
+        currentImageId = image.getImageId();
+
+        /**
+         * Pass the parameters necessary for Deleting the image to the {@link ImageActions}
+         * before checking/ asking for permission
+         *
+         * If permission is granted the callback function calls "delete" method
+         * in {@link ImageActions}
+         * */
+
+        imageActions.setImageId(currentImageId);
+
+        // Alert dialog to confirm delete
+        alertDeleteImage();
+
+    }
+
+
+    /*
+     * Alert when used presses 'Delete Image' menu button
+     * Asks user for confirmation to delete the image
+     */
+    private void alertDeleteImage(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+
+        builder.setMessage("Do you want to delete this image?")
+                .setTitle("Delete Image");
+
+
+        // Add the buttons
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                dialog.dismiss();
+                /**
+                 * Get user permission to delete the picture and call the delete method in {@link ImageActions}
+                 **/
+                getPermissionForAction("Delete");
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                dialog.dismiss();
+            }
+        });
+
+        // Create the AlertDialog
+        AlertDialog deleteImage = builder.create();
+        deleteImage.show();
+    }
+
 
     private void renameImage(Image image) {
 
@@ -390,7 +460,8 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
 
         // Open the Dialog Fragment to get the new name from user as user input
-        new RenameImageDialogFragment(image, ImageDetailActivity.this).show(getSupportFragmentManager(), RenameImageDialogFragment.TAG);
+        new RenameImageDialogFragment(image, ImageDetailActivity.this).show(getSupportFragmentManager(),
+                RenameImageDialogFragment.TAG);
 
 
     }
@@ -409,6 +480,20 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             Toast.makeText(ImageDetailActivity.this, "Could not complete action. Something went wrong!!!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void performDeleteAction() {
+        int deleteResult = imageActions.delete();
+        Log.v("Delete", "No of rows deleted: " + deleteResult);
+
+        if (deleteResult == 1) {
+            Toast.makeText(ImageDetailActivity.this, "Image Deleted!", Toast.LENGTH_SHORT).show();
+
+            // close this activity and Go back to parent activity
+            finish();
+        } else {
+            Toast.makeText(ImageDetailActivity.this, "Could not complete action. Something went wrong!!!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -460,7 +545,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
     }
 
 
-    private void getPermissionRename () {
+    private void getPermissionForAction(String actionToPerform) {
 
         Log.v("Get Permission", "getting permission");
 
@@ -470,15 +555,24 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             allImagesUri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
             // content://media/external/images/media/1377
-            v("Rename", "ImageUri: " + imageUri);
+
+            v("Get Permission", "ImageUri: " + imageUri);
             imageActions.setImageUri(imageUri);
 
             int permissionStatus = checkCallingUriPermission(imageUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-                // Perform rename
-                Log.v("Rename", "UserPermission Already Available");
 
-                performRenameAction();
+                if (actionToPerform.equals("Rename")){
+                    // Perform rename
+                    Log.v("Rename", "UserPermission Already Available");
+
+                    performRenameAction();
+                } else if (actionToPerform.equals("Delete")){
+                    // Perform delete
+                    performDeleteAction();
+                } else {
+                    Log.v("getPermissionForAction", "Invalid input");
+                }
 
             } else if (permissionStatus == PackageManager.PERMISSION_DENIED) {
                 // Ask for permission
@@ -491,8 +585,12 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 PendingIntent editPendingIntent = MediaStore.createWriteRequest(getContentResolver(),
                         urisToModify);
 
+                Log.v("Getting Permission", "requestRenameDeletePermissionLauncher");
+                // Pass the action to perform ("Rename"/"Delete") by setting it to state variable 'imageActionToComplete'
+                imageActionToComplete = actionToPerform;
+                // Android Dialog to get user permission
                 IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(editPendingIntent).build();
-                requestRenamePermissionLauncher.launch(intentSenderRequest);
+                requestRenameDeletePermissionLauncher.launch(intentSenderRequest);
 
             }
 
@@ -512,8 +610,15 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             // Try to rename by updating
             try {
 
-                performRenameAction();
-
+                if (actionToPerform.equals("Rename")){
+                    // Perform rename
+                    performRenameAction();
+                } else if (actionToPerform.equals("Delete")){
+                    // Perform delete
+                    performDeleteAction();
+                } else {
+                    Log.v("getPermissionForAction", "Invalid input");
+                }
                 //getApplicationContext().getContentResolver().notifyChange(imageUri, null);
             } catch (SecurityException securityException) {
                 // https://developer.android.com/training/data-storage/shared/media#update-native-code
@@ -528,7 +633,10 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 IntentSender intentSender = recoverableSecurityException.getUserAction()
                         .getActionIntent().getIntentSender();
 
+                // Pass the action to perform ("Rename"/"Delete") by setting it to state variable 'imageActionToComplete'
+                imageActionToComplete = actionToPerform;
                 try {
+                    // Android Dialog to get user permission
                     startIntentSenderForResult(intentSender, RENAME_INTENT_LAUNCH_CODE,
                             null, 0, 0, 0, null);
                 } catch (IntentSender.SendIntentException e) {
@@ -683,6 +791,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
         switch (item.getItemId()) {
             case R.id.action_image_delete:
                 // Delete action
+                deleteImage(currentImage);
                 return true;
             case R.id.action_image_info:
                 // display image info
@@ -766,15 +875,6 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 editImageTags(imageUri, correctImageTag);
 
                 return true;
-
-            case R.id.action_image_tag_delete:
-                // Delete the row corresponding to an image from the table
-
-                // get the row to be deleted - retrieve the row based on MediaStore image ID
-                // Perform delete operation using ViewModel
-                deleteRowByImageId(currentImage.getImageId());
-
-                return true;
             case R.id.action_clear_tag_db:
                 // DEBUGGING purpose only
 
@@ -834,25 +934,41 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         // rename
-                        Log.v("Rename", "USER PERMISSION GRANTED: " + resultCode);
+                        Log.v("Rename/Delete", "USER PERMISSION GRANTED: " + resultCode);
 
-                        try {
-
-                            performRenameAction();
-
-                        } catch (Exception e) {
-                            Log.v("Rename", "Renaming failed");
-                            Toast.makeText(ImageDetailActivity.this, "Error: Renaming failed!", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
+                        if (imageActionToComplete.equals("Rename")){
+                            try {
+                                performRenameAction();
+                            } catch (Exception e) {
+                                Log.v("Rename", "Renaming failed");
+                                Toast.makeText(ImageDetailActivity.this, "Error: Renaming failed!", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                        }else if (imageActionToComplete.equals("Delete")){
+                            try {
+                                performDeleteAction();
+                            } catch (Exception e) {
+                                Log.v("Delete", "Deleting failed");
+                                Toast.makeText(ImageDetailActivity.this, "Error: Deleting failed!", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Log.v("Rename/Delete", "Invalid input for 'imageActionToComplete' ");
                         }
+
 
                         break;
                     case Activity.RESULT_CANCELED:
                         // inform user action casson be performed
-                        v("Rename", "USER PERMISSION DENIED: " + resultCode);
-
-                        Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission", Toast.LENGTH_SHORT).show();
-
+                        if (imageActionToComplete.equals("Rename")){
+                            v("Rename", "USER PERMISSION DENIED: " + resultCode);
+                            Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission", Toast.LENGTH_SHORT).show();
+                        } else if (imageActionToComplete.equals("Delete")){
+                            v("Delete", "USER PERMISSION DENIED: " + resultCode);
+                            Toast.makeText(ImageDetailActivity.this, "Image cannot be deleted without permission", Toast.LENGTH_SHORT).show();
+                        } else {
+                            v("Rename/Delete", "Invalid input");
+                        }
                         break;
                     default:
                         // invalid state
@@ -924,7 +1040,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             /**
              * Get user permission to rename the picture and call the rename method in {@link ImageActions}
              **/
-            getPermissionRename();
+            getPermissionForAction("Rename");
         }
 
     }

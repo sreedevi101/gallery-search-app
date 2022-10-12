@@ -27,6 +27,12 @@ public class ImageDisplay extends AppCompatActivity {
 
     ArrayList<Image> displayImages;
 
+    String folderName;
+    String folderPath;
+    String numberOfImages;
+    boolean isSearchResults;
+
+
     RecyclerView imageRecycler;
 
     ImageDisplayAdapter pictureAdapter;
@@ -40,11 +46,11 @@ public class ImageDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_image_display);
 
         // Get the data passed through the intent from parent activity
-        String folderName = getIntent().getStringExtra("folderName");
-        String folderPath = getIntent().getStringExtra("folderPath");
-        String numberOfImages = getIntent().getStringExtra("numberOfPics");
+        folderName = getIntent().getStringExtra("folderName");
+        folderPath = getIntent().getStringExtra("folderPath");
+        numberOfImages = getIntent().getStringExtra("numberOfPics");
         // if the activity is opened from a search or not
-        boolean isSearchResults = getIntent().getBooleanExtra("isSearchResults", false);
+        isSearchResults = getIntent().getBooleanExtra("isSearchResults", false);
 
         // Get the search filter object passed from parent activity via the intent extra
         if (isSearchResults) {
@@ -55,6 +61,25 @@ public class ImageDisplay extends AppCompatActivity {
         folderNameText = findViewById(R.id.folderName);
         folderPicNumber = findViewById(R.id.numberOfImages);
 
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Note: Adding code in onStart instead of onCreate, so the images will be reloaded when coming
+        // back to this activity after an image is deleted (delete happening in ImageaDetailActivity)
+        getImagesDisplay();
+
+        // Set up the recycler view to display the images
+        setUpRecyclerView();
+
+    }
+
+    private void getImagesDisplay(){
+
+
         if (isSearchResults) {
             // If the activity is opened to display search results
 
@@ -64,7 +89,7 @@ public class ImageDisplay extends AppCompatActivity {
             ImageTagViewModel viewModel = new ViewModelProvider(this).get(ImageTagViewModel.class);
             Utility.viewModel = viewModel;
 
-           // Image search
+            // Image search
             if (folderName.equals("All")){
                 /**
                  * If "All" folders selected for the search, iterate through all the folders and
@@ -117,6 +142,9 @@ public class ImageDisplay extends AppCompatActivity {
         }
 
 
+    }
+
+    private void setUpRecyclerView() {
         // Get the RecyclerView
         imageRecycler = findViewById(R.id.imageRecycler);
 
@@ -184,6 +212,5 @@ public class ImageDisplay extends AppCompatActivity {
         }
 
     }
-
 
 }

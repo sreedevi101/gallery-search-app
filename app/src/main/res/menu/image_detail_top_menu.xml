@@ -48,11 +48,6 @@
         app:showAsAction="ifRoom"/>
 
 
-    <item
-        android:id="@+id/action_image_tag_delete"
-        android:title="Delete all tags"
-        app:showAsAction="ifRoom"/>
-
     <!--DEBUGGING purpose only-->
     <!--Visibility turned of for release-->
 
