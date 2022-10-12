@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,8 +53,12 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * This activity displays the single image clicked by the user in {@link ImageDisplay} in a view pager
  * */
-public class ImageDetailActivity extends AppCompatActivity implements RenameImageDialogFragment.RenameImageDialogListener,
-        ImageTagEditFragment.ImageTagFragmentListener {
+public class ImageDetailActivity extends AppCompatActivity implements RenameImageDialogFragment.RenameImageDialogListener {
+
+    // Request codes for 'startActivityForResult'; applicable only Android 10
+    private final int RENAME_INTENT_LAUNCH_CODE = 123;
+    private final int TAG_EDIT_INTENT_LAUNCH_CODE = 456;
+
 
     ArrayList<Image> allImages;
 
@@ -159,6 +164,28 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                             // inform user something went wrong, action cannot be performed
                             Toast.makeText(ImageDetailActivity.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
                             break;
+                    }
+                }
+            });
+
+
+    private final ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent intent = result.getData();
+                        // Handle the Intent
+                        String imageTag = intent.getStringExtra("Tag");
+
+                        if (TextUtils.isEmpty(imageTag)) {
+                            // if tag is empty, pass null to the method 'saveImageTag'
+                            saveImageTag(null);
+                        } else{
+                            saveImageTag(imageTag);
+                        }
+
+                        Log.v("TAGS", imageTag);
                     }
                 }
             });
@@ -502,7 +529,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                         .getActionIntent().getIntentSender();
 
                 try {
-                    startIntentSenderForResult(intentSender, 123,
+                    startIntentSenderForResult(intentSender, RENAME_INTENT_LAUNCH_CODE,
                             null, 0, 0, 0, null);
                 } catch (IntentSender.SendIntentException e) {
                     e.printStackTrace();
@@ -710,7 +737,6 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
             case R.id.action_image_tag:
                 // Add or Edit image tags
 
-
                 // Get the existing tags of the corresponding image from 'allData' extracted in 'onCreate'
                 // Note: findRowByImageId not giving timely results since it works async
                 ImageTag correctImageTag = null;
@@ -724,15 +750,11 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                     }
                 }
 
-
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     // Android 11
 
                     allImagesUri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                     imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
-
-
                 } else {
                     // Android 10
 
@@ -741,27 +763,7 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                     imageUri = Uri.withAppendedPath(allImagesUri, currentImageId);
                 }
 
-
-
-                // Open the Fragment 'ImageTagEditFragment' to edit/add/delete image tags
-                ImageTagEditFragment imageTagEditFragment = new ImageTagEditFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("Image Object",imageUri);
-                bundle.putParcelable("ImageTag Object", correctImageTag);
-
-                getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out  // popExit
-                        )
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .add(R.id.image_tag_fragment_container, ImageTagEditFragment.class, bundle)
-                        .commit();
-
+                editImageTags(imageUri, correctImageTag);
 
                 return true;
 
@@ -799,44 +801,95 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
         }
     }
 
+    private void editImageTags(Uri imageUri, ImageTag imageTags){
+
+        // Open a new activity called 'ImageTagEditActivity' to Add/Edit/Delete the image tags associated with the clicked image
+        Intent showImageTags = new Intent(this, ImageTagEditActivity.class);
+
+        showImageTags.putExtra("Image Uri", imageUri.toString());
+
+        showImageTags.putExtra("Image Tags", imageTags);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11
+            mStartForResult.launch(showImageTags);
+        } else {
+            // Android 10
+            startActivityForResult(showImageTags, TAG_EDIT_INTENT_LAUNCH_CODE);
+        }
+
+    }
 
     /**
-     * For Android 10, for processing the results of dialog requesting permission to rename image
+     * For Android 10, for processing the results of :
+     * 1. dialog requesting permission to rename image
+     * 2. activity to edit image tags
      * */
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    // rename
-                    Log.v("Rename", "USER PERMISSION GRANTED: " + resultCode);
+        if (requestCode == RENAME_INTENT_LAUNCH_CODE){
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        // rename
+                        Log.v("Rename", "USER PERMISSION GRANTED: " + resultCode);
 
-                    try {
+                        try {
 
-                        performRenameAction();
+                            performRenameAction();
 
-                    } catch (Exception e) {
-                        Log.v("Rename", "Renaming failed");
-                        Toast.makeText(ImageDetailActivity.this, "Error: Renaming failed!", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
+                        } catch (Exception e) {
+                            Log.v("Rename", "Renaming failed");
+                            Toast.makeText(ImageDetailActivity.this, "Error: Renaming failed!", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
 
-                    break;
-                case Activity.RESULT_CANCELED:
-                    // inform user action casson be performed
-                    v("Rename", "USER PERMISSION DENIED: " + resultCode);
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        // inform user action casson be performed
+                        v("Rename", "USER PERMISSION DENIED: " + resultCode);
 
-                    Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ImageDetailActivity.this, "Name cannot be updated without permission", Toast.LENGTH_SHORT).show();
 
-                    break;
-                default:
-                    // invalid state
-                    Toast.makeText(ImageDetailActivity.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
-                    break;
+                        break;
+                    default:
+                        // invalid state
+                        Toast.makeText(ImageDetailActivity.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
+        } else if (requestCode == TAG_EDIT_INTENT_LAUNCH_CODE) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        String imageTag = data.getStringExtra("Tag");
+
+                        if (TextUtils.isEmpty(imageTag)) {
+                            // if tag is empty, pass null to the method 'saveImageTag'
+                            saveImageTag(null);
+                        } else {
+                            saveImageTag(imageTag);
+                        }
+                        Log.v("TAGS", imageTag);
+
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(ImageDetailActivity.this, "Tags not updated", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        // invalid state
+                        Toast.makeText(ImageDetailActivity.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+            }
+        } else {
+            Log.v("onActivityResult", "Wrong request code");
         }
+
     }
 
     /**
@@ -878,10 +931,9 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
 
 
     /**
-    * Method to be executed when the positive button of {@link ImageTagEditFragment} is pressed
+    * Method to be executed when the positive button of {@link ImageTagEditActivity} is pressed
     * */
-    @Override
-    public void onPositiveClickForTag(String imageTagInput) {
+    private void saveImageTag(String imageTagInput) {
         Log.v("Image Tag user input", ""+ imageTagInput);
 
         // image ID would be updated whenever user opens an image or scrolls in the ViewPager
@@ -913,6 +965,11 @@ public class ImageDetailActivity extends AppCompatActivity implements RenameImag
                 modifyImageTagDatabase(newImageTagObj, "insert", true);
             } else if (imageIdAlreadyInDb == true) {
                 // Instead of inserting as a new row in the DB table, update the existing row for this image ID
+
+                // Skip updating if new image tag same as the one existing in the DB
+                if (imageTagInput.equals(currentImageTagObj.getTag())){
+                    return;
+                }
 
                 // Delete current image tag object from DB table
                 modifyImageTagDatabase(currentImageTagObj, "delete", false);
