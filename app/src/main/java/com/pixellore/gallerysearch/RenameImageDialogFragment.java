@@ -74,11 +74,7 @@ public class RenameImageDialogFragment extends DialogFragment {
                     allImageNames.add(eachImageName);
                 }
             }
-
-
         }
-
-
     }
 
     private String removeExtension(String nameWithExt) {

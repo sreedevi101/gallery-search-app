@@ -90,6 +90,23 @@ public class ImageActions {
 
 
     /*
+    * Delete an Image
+    * */
+    public int delete(){
+
+        String selection = MediaStore.Images.Media._ID + " = ?";
+        String[] selectionArgs = new String[] { imageId };
+
+        int numImagesRemoved = context.getContentResolver().delete(
+                imageUri,
+                selection,
+                selectionArgs);
+
+        return numImagesRemoved;
+    }
+
+
+    /*
      * Mark an image as Favourite or not
      * */
     @RequiresApi(api = Build.VERSION_CODES.R)
