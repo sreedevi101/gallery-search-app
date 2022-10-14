@@ -21,3 +21,12 @@ limitations under the License.
 ```
 
 PhotoView is used is GallerySearch to support pinch and zoom, double-tap and zoom features.
+
+
+**Icon**
+
+<a href="https://www.vecteezy.com/free-vector/ornament">Ornament Vectors by Vecteezy</a>
+
+<a href="https://www.vecteezy.com/free-vector/web">Web Vectors by Vecteezy</a>
+
+<a href="https://www.vecteezy.com/free-vector/gold-background">Gold Background Vectors by Vecteezy</a>
