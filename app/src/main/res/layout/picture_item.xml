@@ -4,7 +4,8 @@
 <!--This XML file is inflated from ImageDisplayAdapter.java-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="140dp"
-    android:layout_height="140dp">
+    android:layout_height="140dp"
+    android:background="@color/white">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

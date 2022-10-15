@@ -29,6 +29,7 @@ public class TutorialActivity extends AppCompatActivity {
     // Define data to be displayed as ArrayList
     ArrayList<TutorialPage> tutorialPages = new ArrayList<TutorialPage>();
 
+    ViewPager2 tutorialViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class TutorialActivity extends AppCompatActivity {
         defineData();
 
         // Get the view pager
-        ViewPager2 tutorialViewPager = findViewById(R.id.tutorial_viewpager);
+        tutorialViewPager = findViewById(R.id.tutorial_viewpager);
 
         /**
          * Create an instance of {@link com.pixellore.gallerytutorial.TutorialRecyclerAdapter.OnItemClickListener}
@@ -47,12 +48,26 @@ public class TutorialActivity extends AppCompatActivity {
          * */
         TutorialRecyclerAdapter.OnItemClickListener clickListenerObj = new TutorialRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(TutorialPage pageItem) {
+            public void onItemClickNextDone(TutorialPage pageItem) {
+                if (pageItem.isNextPageAvailable()){
+                    // https://stackoverflow.com/a/13285950
+                    tutorialViewPager.setCurrentItem(getItem(+1),true);
+                } else {
+                    // If click detected at last page, close TutorialActivity and go back to MainActivity
+                    Intent move = new Intent(TutorialActivity.this, MainActivity.class);
+                    startActivity(move);
+                }
+
+            }
+
+            @Override
+            public void onItemClickSkip(TutorialPage pageItem) {
                 // If click detected, close TutorialActivity and go back to MainActivity
                 Intent move = new Intent(TutorialActivity.this, MainActivity.class);
                 startActivity(move);
             }
         };
+
 
         // Get the view pager adapter
         TutorialRecyclerAdapter adapter = new TutorialRecyclerAdapter(tutorialPages, TutorialActivity.this, clickListenerObj);
@@ -80,21 +95,22 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
 
+    private int getItem(int i) {
+        return tutorialViewPager.getCurrentItem() + i;
+    }
 
     public void defineData() {
 
         tutorialPages.add(new TutorialPage(R.string.page0_head, R.string.page0_content,
-                R.mipmap.outline_photo_library_white_48, true));
+                R.mipmap.gallery_search_icon, true, R.color.darkblue, R.color.white));
         tutorialPages.add(new TutorialPage(R.string.page1_head, R.string.page1_content,
-                R.mipmap.outline_folder_copy_white_48, true));
+                R.mipmap.tutorial_slides_browse_folders, true, R.color.white, R.color.darkblue));
         tutorialPages.add(new TutorialPage(R.string.page2_head, R.string.page2_content,
-                R.mipmap.outline_browse_gallery_white_48, true));
+                R.mipmap.tutorial_slides_image_actions, true, R.color.black, R.color.white));
         tutorialPages.add(new TutorialPage(R.string.page3_head, R.string.page3_content,
-                R.mipmap.outline_photo_white_48, true));
+                R.mipmap.tutorial_slides_tags, true, R.color.darkblue, R.color.white));
         tutorialPages.add(new TutorialPage(R.string.page4_head, R.string.page4_content,
-                R.mipmap.outline_photo_album_white_48, true));
-        tutorialPages.add(new TutorialPage(R.string.page5_head, R.string.page5_content,
-                R.mipmap.outline_image_search_white_48, false));
+                R.mipmap.tutorial_slides_search, false, R.color.white, R.color.darkblue));
 
     }
 

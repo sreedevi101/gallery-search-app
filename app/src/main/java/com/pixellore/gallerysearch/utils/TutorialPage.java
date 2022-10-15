@@ -11,7 +11,9 @@ public class TutorialPage {
     private int mHeading;
     private  int mExplanation;
     private int mGraphicsId;
-    private boolean mSkip;
+    private boolean mNext;
+    private int mBackgroundColor;
+    private int mTextColor;
 
     /**
      * Constructor to create an object with no states
@@ -20,11 +22,14 @@ public class TutorialPage {
 
     }
 
-    public TutorialPage(int heading, int explanation, int graphicsId, boolean skip) {
+    public TutorialPage(int heading, int explanation, int graphicsId, boolean next,
+                        int backgroundColor, int textColor) {
         this.mHeading = heading;
         this.mExplanation = explanation;
         this.mGraphicsId = graphicsId;
-        this.mSkip = skip;
+        this.mNext = next;
+        this.mBackgroundColor = backgroundColor;
+        this.mTextColor = textColor;
     }
 
     public int getHeading() {
@@ -39,8 +44,16 @@ public class TutorialPage {
         return mGraphicsId;
     }
 
-    public boolean isSkip() {
-        return mSkip;
+    public boolean isNextPageAvailable() {
+        return mNext;
+    }
+
+    public int getBackgroundColor(){
+        return mBackgroundColor;
+    }
+
+    public int getTextColor(){
+        return mTextColor;
     }
 
 }
