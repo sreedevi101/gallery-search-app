@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,18 +29,16 @@
             <ImageView
                 android:id="@+id/about_page_icon"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="200dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginLeft="24dp"
-                android:layout_weight="3"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@mipmap/gallery_search_icon_rounded_edges" />
 
             <TextView
                 android:id="@+id/about_page_version"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginLeft="24dp"
@@ -50,8 +49,7 @@
             <TextView
                 android:id="@+id/about_page_short_description"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginLeft="24dp"
@@ -66,10 +64,38 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/about_page_introducton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="32dp"
+                    android:paddingStart="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:text="Introduction"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/about_user_manual"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="32dp"
+                    android:paddingStart="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:text="User Guide"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <TextView
                     android:id="@+id/about_page_privacy_policy"

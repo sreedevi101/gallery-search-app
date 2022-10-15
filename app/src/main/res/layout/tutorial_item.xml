@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
-    android:padding="20dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/heading"
@@ -13,51 +11,82 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:gravity="center"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="36dp"
+        tools:textColor="@android:color/black"
+        android:textSize="30dp"
         android:textStyle="bold"
+        android:padding="20dp"
+        android:alpha="1"
         tools:text="@string/page0_head" />
 
     <ImageView
         android:id="@+id/graphics"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         android:layout_weight="7"
+        android:alpha="1"
         android:scaleType="fitCenter"
-        tools:src="@mipmap/outline_photo_library_white_48" />
+        tools:src="@mipmap/gallery_search_icon"
+        android:padding="20dp"/>
 
     <TextView
         android:id="@+id/explanation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         android:layout_weight="3"
         android:gravity="center_vertical"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="28dp"
-        tools:text="@string/page0_content" />
+        tools:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:alpha="1"
+        tools:text="@string/page0_content"
+        android:padding="20dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="3"
+        android:padding="20dp"
+        android:background="?attr/colorPrimary">
 
         <TextView
-            android:id="@+id/skip_done"
+            android:id="@+id/next_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorSecondary"
-            tools:text="@string/skip"
-            android:textAllCaps="true"
-            android:textSize="24dp"
             android:layout_alignParentRight="true"
-            android:padding="12sp"
             android:layout_centerVertical="true"
             android:background="@drawable/ripple_border"
+            android:clickable="true"
             android:drawableRight="@mipmap/outline_keyboard_double_arrow_right_white_24"
             android:drawablePadding="4dp"
-            android:clickable="true"/>
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="12sp"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="18dp"
+            tools:text="@string/next" />
+
+        <TextView
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:drawablePadding="4dp"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="12sp"
+            android:text="@string/skip"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="18dp" />
+
+
 
     </RelativeLayout>
 

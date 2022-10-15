@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:alpha="1"
     tools:context=".TutorialActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/tutorial_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:alpha="1"
         android:layout_weight="10" />
 
     <com.google.android.material.tabs.TabLayout

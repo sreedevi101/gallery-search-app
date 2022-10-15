@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,14 +44,26 @@ public class TutorialRecyclerAdapter extends RecyclerView.Adapter<TutorialRecycl
         holder.explanation.setText(page.getExplanation());
         holder.graphics.setImageResource(page.getGraphicsId());
 
+        holder.heading.setBackgroundColor(mContext.getResources().getColor(page.getBackgroundColor(),
+                mContext.getTheme()));
+        holder.explanation.setBackgroundColor(mContext.getResources().getColor(page.getBackgroundColor(),
+                mContext.getTheme()));
+        holder.graphics.setBackgroundColor(mContext.getResources().getColor(page.getBackgroundColor(),
+                mContext.getTheme()));
+
+        holder.heading.setTextColor(mContext.getResources().getColor(page.getTextColor(), mContext.getTheme()));
+        holder.explanation.setTextColor(mContext.getResources().getColor(page.getTextColor(), mContext.getTheme()));
+
+
+
         // If isSkip() returns "true", set text as 'SKIP', else set text as 'DONE'
-        if (page.isSkip()) {
-            holder.skipDone.setText(R.string.skip);
-            holder.skipDone.setCompoundDrawablesRelativeWithIntrinsicBounds(
+        if (page.isNextPageAvailable()) {
+            holder.nextDone.setText(R.string.next);
+            holder.nextDone.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     R.mipmap.outline_keyboard_double_arrow_right_white_24, 0,0,0);
         } else {
-            holder.skipDone.setText(R.string.done);
-            holder.skipDone.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            holder.nextDone.setText(R.string.done);
+            holder.nextDone.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     R.mipmap.outline_done_all_white_24,0,0,0);
         }
 
@@ -68,7 +81,8 @@ public class TutorialRecyclerAdapter extends RecyclerView.Adapter<TutorialRecycl
         TextView heading;
         ImageView graphics;
         TextView explanation;
-        TextView skipDone;
+        TextView nextDone;
+        TextView skip;
 
         public TutorialViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,15 +90,24 @@ public class TutorialRecyclerAdapter extends RecyclerView.Adapter<TutorialRecycl
             heading = itemView.findViewById(R.id.heading);
             graphics = itemView.findViewById(R.id.graphics);
             explanation = itemView.findViewById(R.id.explanation);
-            skipDone = itemView.findViewById(R.id.skip_done);
+            nextDone = itemView.findViewById(R.id.next_done);
+            skip = itemView.findViewById(R.id.skip);
         }
 
         public void bind(TutorialPage page, OnItemClickListener listener) {
-            // set the click listener on the 'skipDone' view instead of the whole itemView
-            skipDone.setOnClickListener(new View.OnClickListener() {
+            // set the click listener on the 'nextDone' view instead of the whole itemView
+            nextDone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(page);
+                    listener.onItemClickNextDone(page);
+                }
+            });
+
+            // set the click listener on the 'skip' view
+            skip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClickSkip(page);
                 }
             });
         }
@@ -92,7 +115,9 @@ public class TutorialRecyclerAdapter extends RecyclerView.Adapter<TutorialRecycl
 
 
     public interface OnItemClickListener {
-        void onItemClick(TutorialPage pageItem);
+        void onItemClickNextDone(TutorialPage pageItem);
+
+        void onItemClickSkip(TutorialPage pageItem);
     }
 
 }

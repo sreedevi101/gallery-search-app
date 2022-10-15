@@ -5,23 +5,24 @@
     <!-- Text for the app introduction pages -->
     <!-- Headings for each of the tutorial pages -->
     <string name="page0_head">Welcome to GallerySearch</string>
-    <string name="page1_head">Browse through device folders</string>
-    <string name="page2_head">Explore images in each folder</string>
-    <string name="page3_head">Open the images</string>
-    <string name="page4_head">Scroll images in folders</string>
-    <string name="page5_head">Search images by name</string>
+    <string name="page1_head">Browse folders and explore images</string>
+    <string name="page2_head">View, manage, zoom and swipe the images</string>
+    <string name="page3_head">Add Tags to the photos</string>
+    <string name="page4_head">Search images by name and tag</string>
 
     <!--Text content in each tutorial page-->
     <string name="page0_content">Image gallery that supports Search option</string>
-    <string name="page1_content">Images arranged according to the folders in the device</string>
-    <string name="page2_content">Open the folders to view the images in the folder</string>
-    <string name="page3_content">Open individual images to view full screen to perform zoom action</string>
-    <string name="page4_content">Slide through the rest of the folder images by swiping</string>
-    <string name="page5_content">Unique feature to search and find images based on name</string>
+    <string name="page1_content">Images arranged according to the folders in the device.
+        Open the folders to view the images in the folder</string>
+    <string name="page2_content">Open images to view full screen. Double tap and pinch to zoom.
+        Slide through the images by swiping. </string>
+    <string name="page3_content">Add edit and delete the tags for each image.</string>
+    <string name="page4_content">Unique feature to search and find images based on name and tags</string>
 
     <!--Skip/Done text in tutorial pages-->
     <string name="skip">Skip</string>
     <string name="done">Done</string>
+    <string name="next">Next</string>
 
     <!--Image Tag-->
     <string name="image_tag_add_edit_delete_heading">Manage tags for the image</string>
@@ -31,9 +32,9 @@
     <string name="name_same_as_original">New name entered is same as original name of this image</string>
 
     <string name="about_page_short_description">
-    "Gallery Search" is everything you expect in a photo gallery plus more!!!
+    "GallerySearch" is everything you expect in a photo gallery plus more!!!
 
-        Search and Tag + View and Organize + Ad Free!
+        Search and Tag + View and Organize photos in the phone.
     </string>
 
     <!--Alert user about duplicates-->

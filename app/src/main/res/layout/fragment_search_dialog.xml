@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
+    android:background="@color/white"
     tools:context=".SearchDialogFragment">
 
 

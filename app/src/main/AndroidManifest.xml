@@ -14,10 +14,10 @@
     <application
         android:allowBackup="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/gallery_search_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/gallery_search_icon"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme"
         android:windowSoftInputMode="stateHidden|adjustPan">
@@ -69,4 +69,10 @@
         </activity>
     </application>
 
+    <queries>
+    <intent>
+        <action android:name="android.intent.action.SEND" />
+        <data android:scheme="mailto:" android:host="*" />
+    </intent>
+</queries>
 </manifest>

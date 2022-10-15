@@ -39,7 +39,37 @@ public class AboutAppActivity extends AppCompatActivity {
         String actionBarTitle = ab.getTitle().toString();
         ab.setTitle("About " + actionBarTitle);
 
+        // Introduction
+        TextView introductionTextView = (TextView) this.findViewById(R.id.about_page_introducton);
 
+        introductionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // open tutorial slides
+                //When the button is clicked open the activity for the tutorial
+                Intent move = new Intent(AboutAppActivity.this, TutorialActivity.class);
+                startActivity(move);
+            }
+
+        });
+
+        // User Notes
+        TextView userNotesTextView = (TextView) this.findViewById(R.id.about_user_manual);
+
+        userNotesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // open tutorial slides
+                String userManualLink = "https://github.com/sreedevi101/gallery-search-app/blob/main/User%20Guide.md";
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(userManualLink));
+                startActivity(browserIntent);
+            }
+
+        });
+
+        // Privacy policy
         TextView privacyPolicyTextView = (TextView) this.findViewById(R.id.about_page_privacy_policy);
 
         privacyPolicyTextView.setOnClickListener(new View.OnClickListener() {
@@ -93,16 +123,20 @@ public class AboutAppActivity extends AppCompatActivity {
 
                 // send email
                 String developerEmailId = "sreedevi.appdev@gmail.com";
+                String subject = "GallerySearch";
 
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
+                Intent i = new Intent(Intent.ACTION_SENDTO);
+                //i.setType("text/plain"); // or:
+                i.setData(Uri.parse("mailto:")); // only email apps should handle this
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{developerEmailId});
-                i.putExtra(Intent.EXTRA_SUBJECT, "GallerySearch");
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(AboutAppActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                i.putExtra(Intent.EXTRA_SUBJECT, subject);
+                try{
+                    startActivity(i);
+                } catch(android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(AboutAppActivity.this,
+                            "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
         });
